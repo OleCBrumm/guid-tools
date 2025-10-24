@@ -1,0 +1,4 @@
+---
+alwaysApply: true
+---
+Use @Applogger.cs for logging. Not Console or Debug

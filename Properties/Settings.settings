@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!-- Settings.settings: Configuration file that defines what settings exist in the application -->
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
+  <Profiles />
+  <Settings>
+    <!-- Theme setting definition -->
+    <Setting Name="Theme" Type="System.String" Scope="User">
+      <!-- Default value: Used when no saved value exists (first run or corrupted settings) -->
+      <Value Profile="(Default)">Auto</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
