@@ -4,10 +4,10 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net9.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
-    <AssemblyTitle>SitecoreIdConverter</AssemblyTitle>
-    <AssemblyDescription>Simple tool to convert Sitecore IDs between different formats</AssemblyDescription>
+    <AssemblyTitle>IdConverter</AssemblyTitle>
+    <AssemblyDescription>Simple tool to convert IDs between different formats</AssemblyDescription>
     <AssemblyCompany>Håvard C Skåle</AssemblyCompany>
-    <AssemblyProduct>SitecoreIdConverter</AssemblyProduct>
+    <AssemblyProduct>IdConverter</AssemblyProduct>
     <AssemblyCopyright>Copyright © Håvard C Skåle 2024</AssemblyCopyright>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>

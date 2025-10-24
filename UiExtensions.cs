@@ -1,7 +1,7 @@
 ﻿#nullable enable
 using System.Windows.Controls;
 
-namespace SitecoreIdConverter;
+namespace IdConverter;
 
 public static class UiExtensions
 {

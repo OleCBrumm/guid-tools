@@ -5,9 +5,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
-using SitecoreIdConverter.Properties;
-using static SitecoreIdConverter.ValidationExtensions;
-namespace SitecoreIdConverter;
+using IdConverter.Properties;
+using static IdConverter.ValidationExtensions;
+namespace IdConverter;
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml
@@ -15,6 +15,11 @@ namespace SitecoreIdConverter;
 public partial class MainWindow : Window
 {
     private readonly ThemeManager _themeManager;
+    private bool _smallIsLower = true;
+    private bool _mediumIsLower = true;
+    private bool _largeIsLower = true;
+    private bool _fullIsLower = false;
+    private Guid? _currentGuid;
     
     public MainWindow()
     {
@@ -196,24 +201,26 @@ public partial class MainWindow : Window
 
     private void DisplayResults(Guid guid)
     {
+        _currentGuid = guid;
+        
         if (SmallTextBlock != null)
         {
-            SmallTextBlock.Text = guid.Short();
+            SmallTextBlock.Text = guid.Short(_smallIsLower);
         }
         
         if (MediumTextBlock != null)
         {
-            MediumTextBlock.Text = guid.Medium();
+            MediumTextBlock.Text = guid.Medium(_mediumIsLower);
         }
         
         if (LargeTextBlock != null)
         {
-            LargeTextBlock.Text = guid.Large();
+            LargeTextBlock.Text = guid.Large(_largeIsLower);
         }
         
         if (FullTextBlock != null)
         {
-            FullTextBlock.Text = guid.Full();
+            FullTextBlock.Text = guid.Full(_fullIsLower);
         }
         
         if (StatusText != null)
@@ -318,4 +325,44 @@ public partial class MainWindow : Window
         WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
 
     private void OnClose(object sender, RoutedEventArgs e) => Close();
+
+    #region Casing Toggle Handlers
+
+    private void OnToggleSmallCasing(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    {
+        _smallIsLower = !_smallIsLower;
+        RefreshDisplay();
+        e.Handled = true;
+    }
+
+    private void OnToggleMediumCasing(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    {
+        _mediumIsLower = !_mediumIsLower;
+        RefreshDisplay();
+        e.Handled = true;
+    }
+
+    private void OnToggleLargeCasing(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    {
+        _largeIsLower = !_largeIsLower;
+        RefreshDisplay();
+        e.Handled = true;
+    }
+
+    private void OnToggleFullCasing(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    {
+        _fullIsLower = !_fullIsLower;
+        RefreshDisplay();
+        e.Handled = true;
+    }
+
+    private void RefreshDisplay()
+    {
+        if (_currentGuid.HasValue)
+        {
+            DisplayResults(_currentGuid.Value);
+        }
+    }
+
+    #endregion
 }

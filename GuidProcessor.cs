@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 
-namespace SitecoreIdConverter
+namespace IdConverter
 {
     /// <summary>
     /// Handles GUID processing and conversion logic
@@ -22,6 +22,12 @@ namespace SitecoreIdConverter
                 
                 if (cleanId.IsValidGuid())
                 {
+                    // Pad 8-character small format with zeros to create full GUID
+                    if (cleanId.Length == 8)
+                    {
+                        cleanId = cleanId.PadRight(32, '0');
+                    }
+
                     return new Guid(cleanId);
                 }
             }
@@ -37,7 +43,6 @@ namespace SitecoreIdConverter
         /// Removes all non-alphanumeric characters and converts to lowercase
         /// </summary>
         public static string CleanInput(string input) =>
-            new string(input.ToLower()
-                .Where(char.IsLetterOrDigit).ToArray());
+            new string(input.Where(char.IsLetterOrDigit).ToArray());
     }
 }

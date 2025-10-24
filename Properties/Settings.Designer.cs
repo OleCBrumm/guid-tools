@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SitecoreIdConverter.Properties {
+namespace IdConverter.Properties {
     
     // This class provides type-safe access to application settings
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

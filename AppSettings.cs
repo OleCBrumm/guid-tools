@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace SitecoreIdConverter
+namespace IdConverter
 {
     /// <summary>
     /// Application settings manager that handles theme and logging configuration

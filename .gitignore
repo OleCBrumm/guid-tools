@@ -1,3 +1,4 @@
-﻿/.vs
+﻿/MSBuild_Logs
+/.vs
 /bin/Debug/net9.0-windows
 /obj

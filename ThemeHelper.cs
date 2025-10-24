@@ -1,6 +1,6 @@
 using Microsoft.Win32;
 
-namespace SitecoreIdConverter;
+namespace IdConverter;
 
 public static class ThemeHelper
 {

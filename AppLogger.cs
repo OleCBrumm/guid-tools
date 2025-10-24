@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace SitecoreIdConverter
+namespace IdConverter
 {
     /// <summary>
     /// Handles application logging with batch purging

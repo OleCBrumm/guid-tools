@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Windows;
 
-namespace SitecoreIdConverter
+namespace IdConverter
 {
     /// <summary>
     /// Interaction logic for App.xaml
@@ -17,7 +17,7 @@ namespace SitecoreIdConverter
                 string logFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "app-debug.log");
                 AppLogger.Initialize(logFilePath);
                 
-                AppLogger.WriteLog("=== Sitecore ID Converter Starting ===");
+                AppLogger.WriteLog("=== ID Converter Starting ===");
                 AppLogger.WriteLog($"Working Directory: {Environment.CurrentDirectory}");
                 AppLogger.WriteLog($"Base Directory: {AppDomain.CurrentDomain.BaseDirectory}");
                 
@@ -36,7 +36,7 @@ namespace SitecoreIdConverter
         {
             try
             {
-                AppLogger.WriteLog("=== Sitecore ID Converter Shutting Down ===");
+                AppLogger.WriteLog("=== ID Converter Shutting Down ===");
                 base.OnExit(e);
             }
             catch (Exception ex)

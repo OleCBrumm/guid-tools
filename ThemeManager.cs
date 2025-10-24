@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Media;
 
-namespace SitecoreIdConverter
+namespace IdConverter
 {
     /// <summary>
     /// Manages application theming
