@@ -1,4 +1,4 @@
-# Sitecore ID Converter
+﻿# ID Converter
 
 A simple Windows desktop application for converting GUIDs between different formats.
 
