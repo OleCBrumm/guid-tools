@@ -223,6 +223,16 @@ public partial class MainWindow : Window
             FullTextBlock.Text = guid.Full(_fullIsLower);
         }
         
+        if (Base64TextBlock != null)
+        {
+            Base64TextBlock.Text = guid.Base64();
+        }
+        
+        if (BinaryTextBlock != null)
+        {
+            BinaryTextBlock.Text = guid.Binary();
+        }
+        
         if (StatusText != null)
         {
             StatusText.Text = "✅";
@@ -250,6 +260,16 @@ public partial class MainWindow : Window
         {
             FullTextBlock.Clear();
         }
+        
+        if (Base64TextBlock != null)
+        {
+            Base64TextBlock.Clear();
+        }
+        
+        if (BinaryTextBlock != null)
+        {
+            BinaryTextBlock.Clear();
+        }
     }
 
     private void ShowError(string message)
@@ -273,6 +293,12 @@ public partial class MainWindow : Window
 
     private void OnCopyFull(object sender, RoutedEventArgs e) =>
         CopyToClipboard(FullTextBlock.Text, sender as Border);
+
+    private void OnCopyBase64(object sender, RoutedEventArgs e) =>
+        CopyToClipboard(Base64TextBlock.Text, sender as Border);
+
+    private void OnCopyBinary(object sender, RoutedEventArgs e) =>
+        CopyToClipboard(BinaryTextBlock.Text, sender as Border);
 
     private void CopyToClipboard(string text, Border border)
     {

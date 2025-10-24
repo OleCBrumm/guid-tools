@@ -23,4 +23,10 @@ public static class GuidExtensions
         toLower 
             ? $"{{{guid.ToString("D")}}}"
             : $"{{{guid.ToString("D").ToUpper()}}}";
+
+    public static string Base64(this Guid guid) => 
+        Convert.ToBase64String(guid.ToByteArray());
+
+    public static string Binary(this Guid guid) => 
+        $"0x{guid.ToString("N").ToUpper()}";
 }

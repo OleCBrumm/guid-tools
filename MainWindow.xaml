@@ -1,13 +1,15 @@
 <Window x:Class="IdConverter.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="ID Converter" Height="800" Width="1000"
+        Title="ID Converter" 
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanResize"
+        SizeToContent="Height"
         FontFamily="Segoe UI"
         FontSize="14"
         Background="#1A1A1A"
         WindowStyle="None"
+        Width="600"
         AllowsTransparency="True">
     <Window.Resources>
         <!-- Light Theme Colors (Default/Fallback) -->
@@ -59,6 +61,12 @@
             </Style.Triggers>
         </Style>
         
+        <!-- Default Border Style for main content -->
+        <Style TargetType="Border" x:Key="MainBorderStyle">
+            <Setter Property="Margin" Value="10,5"/>
+            <Setter Property="Padding" Value="5"/>
+        </Style>
+        
         <!-- Active Theme Resources (initialized with Light theme defaults) -->
         <!-- These will be updated by ThemeManager but must exist for initial DynamicResource binding -->
         <SolidColorBrush x:Key="BackgroundBrush" Color="#F8F9FA"/>
@@ -78,18 +86,11 @@
         <SolidColorBrush x:Key="StatusTextBrush" Color="#64748B"/>
     </Window.Resources>
     
-    <Grid Margin="0" Background="{DynamicResource BackgroundBrush}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="40"/> <!-- Custom Title Bar -->
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+    <!-- Main Container - flows top to bottom like HTML -->
+    <StackPanel Margin="0" Background="{DynamicResource BackgroundBrush}">
         
-        <!-- Custom Title Bar -->
-        <Border x:Name="TitleBar" Grid.Row="0" Background="{DynamicResource CardBackgroundBrush}" 
+        <!-- Title Bar (top) -->
+        <Border x:Name="TitleBar" Height="40" Background="{DynamicResource CardBackgroundBrush}" 
                 BorderBrush="{DynamicResource CardBorderBrush}" BorderThickness="0,0,0,1"
                 MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
             <Grid>
@@ -98,7 +99,7 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 
-                <TextBlock Grid.Column="0" Text="🔧 ID Converter" 
+                <TextBlock Grid.Column="0" Text="🔧 ID Converter (Convert between different ID formats)" 
                            FontSize="14" FontWeight="SemiBold" 
                            Foreground="{DynamicResource TextPrimaryBrush}" 
                            VerticalAlignment="Center" Margin="20,0,0,0"/>
@@ -123,76 +124,40 @@
             </Grid>
         </Border>
         
-        
-        <!-- Header -->
-        <Border Grid.Row="1" 
-                Background="{DynamicResource CardBackgroundBrush}" 
-                CornerRadius="12" 
-                BorderBrush="{DynamicResource CardBorderBrush}" 
-                BorderThickness="1" 
-                Padding="20"
-                Margin="30,20,30,24">
-            <StackPanel>
-                <TextBlock Text="🔧 Convert between different ID formats" 
-                           FontSize="14" Foreground="{DynamicResource TextSecondaryBrush}" 
-                           HorizontalAlignment="Center" Margin="0,8,0,0"/>
-            </StackPanel>
-        </Border>
-        
         <!-- Input Section -->
-        <Border Grid.Row="2" Background="{DynamicResource CardBackgroundBrush}" CornerRadius="8" 
+        <Border Background="{DynamicResource CardBackgroundBrush}" CornerRadius="8" 
                 BorderBrush="{DynamicResource CardBorderBrush}" BorderThickness="1" 
-                Padding="20" Margin="30,0,30,20">
+                Style="{StaticResource MainBorderStyle}">
             <StackPanel>
-                <TextBlock Text="📝 Enter id" 
-                           FontSize="16" FontWeight="SemiBold" 
-                           Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,12"/>
-                
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    
-                    <TextBox x:Name="InputTextBox" Grid.Column="0" Height="40" 
-                             FontFamily="Consolas" FontSize="14"
-                             TextChanged="InputTextBox_TextChanged"
-                             Margin="0,0,12,0"
-                             Padding="12,8"
-                             BorderBrush="{DynamicResource InputBorderBrush}" BorderThickness="1"
-                             Background="{DynamicResource InputBackgroundBrush}"
-                             Foreground="{DynamicResource TextPrimaryBrush}"                             
-                             VerticalAlignment="Center"
-                             HorizontalAlignment="Stretch"/>
-                    
-                    
-                </Grid>
+                <!-- Input Field -->
+                <Border Background="{DynamicResource ResultBackgroundBrush}" BorderBrush="{DynamicResource ResultBorderBrush}" BorderThickness="1" 
+                        CornerRadius="6" Padding="16">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="📝 Enter ID:" FontWeight="SemiBold" 
+                                   Foreground="{DynamicResource ResultLabelBrush}" VerticalAlignment="Center" 
+                                   Margin="0,0,16,0" FontSize="13"/>
+                        <TextBox x:Name="InputTextBox" Grid.Column="1" 
+                                 FontFamily="Consolas" FontSize="14"
+                                 TextChanged="InputTextBox_TextChanged"
+                                 BorderThickness="0"
+                                 Background="Transparent"
+                                 Foreground="{DynamicResource ResultTextBrush}"                             
+                                 VerticalAlignment="Center"
+                                 HorizontalAlignment="Stretch"/>
+                    </Grid>
+                </Border>
             </StackPanel>            
         </Border>
 
-        <Border Grid.Row="3" Background="{DynamicResource CardBackgroundBrush}" CornerRadius="8" 
-                BorderBrush="{DynamicResource CardBorderBrush}" BorderThickness="1" 
-                Padding="20" Margin="30,0,30,20">
-            <StackPanel>
-            <Button Content="🎲 Generate New GUID" 
-                            Height="40" Padding="12,0" FontSize="13"
-                            FontWeight="SemiBold"
-                            Background="{DynamicResource CardBackgroundBrush}" 
-                            Foreground="{DynamicResource TextPrimaryBrush}"
-                            BorderBrush="{DynamicResource CardBorderBrush}" BorderThickness="1"
-                            Click="OnGenerateGuid"/>
-            </StackPanel>
-        </Border>
-        
         <!-- Results Section -->
-        <Border Grid.Row="4" Background="{DynamicResource CardBackgroundBrush}" CornerRadius="8" 
+        <Border Background="{DynamicResource CardBackgroundBrush}" CornerRadius="8" 
                 BorderBrush="{DynamicResource CardBorderBrush}" BorderThickness="1" 
-                Padding="20" Margin="30,0,30,20">
+                Style="{StaticResource MainBorderStyle}">
             <StackPanel>
-                <TextBlock Text="📋 Converted Formats" 
-                           FontSize="16" FontWeight="SemiBold" 
-                           Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,16"/>
-                
                 <StackPanel>
                     <!-- Small Format -->
                     <Border Background="{DynamicResource ResultBackgroundBrush}" BorderBrush="{DynamicResource ResultBorderBrush}" BorderThickness="1" 
@@ -256,7 +221,7 @@
                     
                     <!-- Full Format -->
                     <Border Background="{DynamicResource ResultBackgroundBrush}" BorderBrush="{DynamicResource ResultBorderBrush}" BorderThickness="1" 
-                            CornerRadius="6" Margin="0,0,0,0" Padding="16" Cursor="Hand"
+                            CornerRadius="6" Margin="0,0,0,8" Padding="16" Cursor="Hand"
                             MouseLeftButtonDown="OnCopyFull">
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -273,14 +238,65 @@
                                        Foreground="{DynamicResource ResultTextBrush}" VerticalAlignment="Center"/>
                         </Grid>
                     </Border>
+                    
+                    <!-- Base64 Format -->
+                    <Border Background="{DynamicResource ResultBackgroundBrush}" BorderBrush="{DynamicResource ResultBorderBrush}" BorderThickness="1" 
+                            CornerRadius="6" Margin="0,0,0,8" Padding="16" Cursor="Hand"
+                            MouseLeftButtonDown="OnCopyBase64">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="🔹 Base64:" FontWeight="SemiBold" 
+                                       Foreground="{DynamicResource ResultLabelBrush}" VerticalAlignment="Center" 
+                                       Margin="0,0,16,0" FontSize="13"/>
+                            <TextBlock x:Name="Base64TextBlock" Grid.Column="1" 
+                                       FontFamily="Consolas" FontSize="14" 
+                                       Foreground="{DynamicResource ResultTextBrush}" VerticalAlignment="Center"/>
+                        </Grid>
+                    </Border>
+                    
+                    <!-- Binary Format -->
+                    <Border Background="{DynamicResource ResultBackgroundBrush}" BorderBrush="{DynamicResource ResultBorderBrush}" BorderThickness="1" 
+                            CornerRadius="6" Margin="0,0,0,0" Padding="16" Cursor="Hand"
+                            MouseLeftButtonDown="OnCopyBinary">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="🔸 Binary:" FontWeight="SemiBold" 
+                                       Foreground="{DynamicResource ResultLabelBrush}" VerticalAlignment="Center" 
+                                       Margin="0,0,16,0" FontSize="13"/>
+                            <TextBlock x:Name="BinaryTextBlock" Grid.Column="1" 
+                                       FontFamily="Consolas" FontSize="14" 
+                                       Foreground="{DynamicResource ResultTextBrush}" VerticalAlignment="Center"/>
+                        </Grid>
+                    </Border>
                 </StackPanel>
             </StackPanel>
         </Border>
         
-        <!-- Status Bar -->
-        <Border Grid.Row="5" Background="{DynamicResource StatusBackgroundBrush}" CornerRadius="6" 
+        <!-- Generate Button -->
+        <Border Background="{DynamicResource CardBackgroundBrush}" CornerRadius="8" 
+                BorderBrush="{DynamicResource CardBorderBrush}" BorderThickness="1" 
+                Style="{StaticResource MainBorderStyle}">
+            <StackPanel>
+                <Button Content="🎲 Generate New GUID" 
+                        Height="40" Padding="12,0" FontSize="13"
+                        FontWeight="SemiBold"
+                        Background="{DynamicResource CardBackgroundBrush}" 
+                        Foreground="{DynamicResource TextPrimaryBrush}"
+                        BorderBrush="{DynamicResource CardBorderBrush}" BorderThickness="1"
+                        Click="OnGenerateGuid"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Status Bar (bottom) -->
+        <Border Background="{DynamicResource StatusBackgroundBrush}" CornerRadius="6" 
                 BorderBrush="{DynamicResource StatusBorderBrush}" BorderThickness="1" 
-                Padding="12,8" Margin="30,0,30,30">
+                Style="{StaticResource MainBorderStyle}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -319,5 +335,5 @@
                 </StackPanel>
             </Grid>
         </Border>
-    </Grid>
+    </StackPanel>
 </Window>
